@@ -29,7 +29,8 @@
         "angular-animate": "1.6.7",
         "angular-aria": "1.6.7",
         "angular-route": "1.6.7",
-        "d3": "4.12.0"
+        "d3": "4.12.0",
+        "jquery": "3.2.1"
     },
     "devDependencies": {
         "babel-cli": "6.26.0",

@@ -7,7 +7,8 @@ module.exports = {
     entry: {
         app: './src/index.js',
         vendor: [
-            'jquery',
+          'd3',
+          'angular',
         ],
     },
     output: {
@@ -51,11 +52,6 @@ module.exports = {
     },
     plugins: [
         // new BundleAnalyzerPlugin(),
-        new webpack.ProvidePlugin({
-            jQuery: 'jquery',
-            $: 'jquery',
-            jquery: 'jquery',
-        }),
         new webpack.LoaderOptionsPlugin({
             minimize: true,
             debug: false,
