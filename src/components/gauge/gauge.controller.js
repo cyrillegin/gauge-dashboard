@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 export default class gaugeController {
 
     constructor($scope, $window, $timeout) {
-        'ngInject'
+        'ngInject';
 
         this.$scope = $scope;
         this.$window = $window;
@@ -12,70 +12,24 @@ export default class gaugeController {
 
     }
     $onInit() {
-      console.log(this.$scope)
-      this.$scope.name = this.$scope.$ctrl.attributes.name;
-      this.$scope.value = this.$scope.$ctrl.attributes.value;
-      this.$scope.upperLimit = this.$scope.$ctrl.attributes.upperLimit;
-      this.$scope.lowerLimit = this.$scope.$ctrl.attributes.lowerLimit;
-      this.$scope.valueUnit = this.$scope.$ctrl.attributes.valueUnit;
-      this.$scope.precision = this.$scope.$ctrl.attributes.precision;
-      this.$scope.ranges = this.$scope.$ctrl.attributes.ranges;
+        this.$scope.name = this.$scope.$ctrl.attributes.name;
+        this.$scope.value = this.$scope.$ctrl.attributes.value;
+        this.$scope.upperLimit = this.$scope.$ctrl.attributes.upperLimit;
+        this.$scope.lowerLimit = this.$scope.$ctrl.attributes.lowerLimit;
+        this.$scope.valueUnit = this.$scope.$ctrl.attributes.valueUnit;
+        this.$scope.precision = this.$scope.$ctrl.attributes.precision;
+        this.$scope.ranges = this.$scope.$ctrl.attributes.ranges;
 
-        // this.$scope.value = 1.6;
-        // this.$scope.upperLimit = 6;
-        // this.$scope.lowerLimit = 0;
-        // this.$scope.valueUnit = 'kW';
-        // this.$scope.precision = 2;
-        // this.$scope.ranges = [{
-        //         min: 0,
-        //         max: 1.5,
-        //         color: '#DEDEDE'
-        //     },
-        //     {
-        //         min: 1.5,
-        //         max: 2.5,
-        //         color: '#8DCA2F'
-        //     },
-        //     {
-        //         min: 2.5,
-        //         max: 3.5,
-        //         color: '#FDC702'
-        //     },
-        //     {
-        //         min: 3.5,
-        //         max: 4.5,
-        //         color: '#FF7700'
-        //     },
-        //     {
-        //         min: 4.5,
-        //         max: 6.0,
-        //         color: '#C50200'
-        //     }
-        // ];
         this.$timeout(() => {
-          this.drawGraph();
+            this.drawGraph();
         });
     }
 
     drawGraph() {
-        console.log('selecting: ' + '#' + this.$scope.name)
-        const container = $('#' + this.$scope.name);
-        console.log(container)
+        const container = $(`#${this.$scope.name}`);
         // Clear anything that is already in there.
         container.html('');
-        console.log('drawing')
-        const that = this
-
-        const myScope = {
-            lowerLimit: '=',
-            upperLimit: '=',
-            ranges: '=',
-            value: '=',
-            valueUnit: '=',
-            precision: '=',
-            label: '@',
-            onClick: '&',
-        };
+        const that = this;
 
         let renderTimeout;
         const width = 300;
@@ -99,7 +53,7 @@ export default class gaugeController {
             .append('svg')
             .attr('width', width)
             .attr('height', width * 0.75);
-        const renderMajorGraduations = function(majorGraduationsAngles) {
+        const renderMajorGraduations = function (majorGraduationsAngles) {
             const centerX = width / 2;
             const centerY = width / 2;
             // Render Major Graduations
@@ -122,7 +76,7 @@ export default class gaugeController {
                 renderMinorGraduations(majorGraduationsAngles, index);
             });
         };
-        const renderMinorGraduations = function(majorGraduationsAngles, indexMajor) {
+        const renderMinorGraduations = function (majorGraduationsAngles, indexMajor) {
             const minorGraduationsAngles = [];
 
             if (indexMajor > 0) {
@@ -130,8 +84,8 @@ export default class gaugeController {
                 const maxScale = majorGraduationsAngles[indexMajor];
                 const scaleRange = maxScale - minScale;
 
-                for (let i = 1; i < minorGraduations; i++) {
-                    const scaleValue = minScale + i * scaleRange / minorGraduations;
+                for (let index = 1; index < minorGraduations; index++) {
+                    const scaleValue = minScale + index * scaleRange / minorGraduations;
                     minorGraduationsAngles.push(scaleValue);
                 }
 
@@ -157,30 +111,31 @@ export default class gaugeController {
             }
         };
 
-        const getMajorGraduationValues = function(minLimit, maxLimit) {
+        const getMajorGraduationValues = function (minLimit, maxLimit) {
             const scaleRange = maxLimit - minLimit;
             const majorGraduationValues = [];
-            for (let i = 0; i <= majorGraduations; i++) {
-                const scaleValue = minLimit + i * scaleRange / (majorGraduations);
+            for (let index = 0; index <= majorGraduations; index++) {
+                const scaleValue = minLimit + index * scaleRange / (majorGraduations);
                 majorGraduationValues.push(scaleValue.toFixed(that.$scope.precision));
             }
 
             return majorGraduationValues;
         };
-        const getMajorGraduationAngles = function() {
+        const getMajorGraduationAngles = function () {
             const scaleRange = 240;
             const minScale = -120;
             const graduationsAngles = [];
-            for (let i = 0; i <= majorGraduations; i++) {
-                const scaleValue = minScale + i * scaleRange / (majorGraduations);
+            for (let index = 0; index <= majorGraduations; index++) {
+                const scaleValue = minScale + index * scaleRange / (majorGraduations);
                 graduationsAngles.push(scaleValue);
             }
 
             return graduationsAngles;
         };
-        const renderMajorGraduationTexts = function(majorGraduationsAngles, majorGraduationValues) {
-            if (!that.$scope.ranges) return;
-
+        const renderMajorGraduationTexts = function (majorGraduationsAngles, majorGraduationValues) {
+            if (!that.$scope.ranges) {
+                return;
+            }
             const centerX = width / 2;
             const centerY = width / 2;
             const textVerticalPadding = 5;
@@ -188,7 +143,7 @@ export default class gaugeController {
 
             const lastGraduationValue = majorGraduationValues[majorGraduationValues.length - 1];
             const textSize = isNaN(majorGraduationTextSize) ? (width * 12) / 300 : majorGraduationTextSize;
-            const fontStyle = textSize + 'px Courier';
+            const fontStyle = `${textSize}px Courier`;
 
             const dummyText = svg.append('text')
                 .attr('x', centerX)
@@ -200,10 +155,10 @@ export default class gaugeController {
 
             const textWidth = dummyText.node().getBBox().width;
 
-            for (let i = 0; i < majorGraduationsAngles.length; i++) {
-                const angle = majorGraduationsAngles[i];
+            for (let index = 0; index < majorGraduationsAngles.length; index++) {
+                const angle = majorGraduationsAngles[index];
                 let cos1Adj = Math.round(Math.cos((90 - angle) * Math.PI / 180) * (innerRadius - majorGraduationMarginTop - majorGraduationLenght - textHorizontalPadding));
-                let sin1Adj = Math.round(Math.sin((90 - angle) * Math.PI / 180) * (innerRadius - majorGraduationMarginTop - majorGraduationLenght - textVerticalPadding));
+                const sin1Adj = Math.round(Math.sin((90 - angle) * Math.PI / 180) * (innerRadius - majorGraduationMarginTop - majorGraduationLenght - textVerticalPadding));
 
                 let sin1Factor = 1;
                 if (sin1Adj < 0) {
@@ -238,7 +193,7 @@ export default class gaugeController {
                     .attr('x', x1)
                     .attr('dy', y1)
                     .attr('fill', majorGraduationTextColor)
-                    .text(majorGraduationValues[i] + that.$scope.valueUnit);
+                    .text(majorGraduationValues[index] + that.$scope.valueUnit);
             }
         };
         const renderGraduationNeedle = function (minLimit, maxLimit) {
@@ -261,9 +216,9 @@ export default class gaugeController {
                 const leftY = centerY - needleRadius * Math.sin(thetaRad - Math.PI / 2);
                 const rightX = centerX - needleRadius * Math.cos(thetaRad + Math.PI / 2);
                 const rightY = centerY - needleRadius * Math.sin(thetaRad + Math.PI / 2);
-                const triangle = 'M ' + leftX + ' ' + leftY + ' L ' + topX + ' ' + topY + ' L ' + rightX + ' ' + rightY;
+                const triangle = `M ${leftX} ${leftY} L ${topX} ${topY} L ${rightX} ${rightY}`;
                 const textSize = isNaN(needleValueTextSize) ? (width * 12) / 300 : needleValueTextSize;
-                const fontStyle = textSize + 'px Courier';
+                const fontStyle = `${textSize}px Courier`;
 
                 if (that.$scope.value >= minLimit && that.$scope.value <= maxLimit) {
                     svg.append('svg:path')
@@ -281,7 +236,7 @@ export default class gaugeController {
                     .attr('text-anchor', 'middle')
                     .attr('font-weight', 'bold')
                     .style('font', fontStyle)
-                    .text('[ ' + that.$scope.value.toFixed(that.$scope.precision) + that.$scope.valueUnit + ' ]');
+                    .text(`[ ${that.$scope.value.toFixed(that.$scope.precision)}${that.$scope.valueUnit} ]`);
             }
 
             const circleRadius = (width * 6) / 300;
@@ -295,10 +250,7 @@ export default class gaugeController {
         this.$window.onresize = function () {
             this.$scope.$apply();
         };
-        this.$scope.$watch(() => {
-            console.log('');
-            return angular.element(this.$window)[0].innerWidth;
-        }, () => {
+        this.$scope.$watch(() => angular.element(this.$window)[0].innerWidth, () => {
             this.$scope.render();
         });
         this.$scope.$watch('ranges', () => {
@@ -326,25 +278,20 @@ export default class gaugeController {
                 }
 
                 // Render Gauge Color Area
-                const translate = 'translate(' + width / 2 + ',' + width / 2 + ')';
-                const cScale = d3.scaleLinear().domain([minLimit, maxLimit]).range([-120 * (Math.PI / 180), 120 * (Math.PI / 180)]);
+                const translate = `translate(${width / 2},${width / 2})`;
+                const cScale = d3.scaleLinear().domain([minLimit, maxLimit])
+                    .range([-120 * (Math.PI / 180), 120 * (Math.PI / 180)]);
                 const arc = d3.arc()
                     .innerRadius(innerRadius)
                     .outerRadius(outterRadius)
-                    .startAngle((d) => {
-                        return cScale(d[0]);
-                    })
-                    .endAngle((d) => {
-                        return cScale(d[1]);
-                    });
+                    .startAngle((di) => cScale(di[0]))
+                    .endAngle((di) => cScale(di[1]));
                 svg.selectAll('path')
                     .data(d3DataSource)
                     .enter()
                     .append('path')
                     .attr('d', arc)
-                    .style('fill', (d) => {
-                        return d[2];
-                    })
+                    .style('fill', (di) => di[2])
                     .attr('transform', translate);
 
                 const majorGraduationsAngles = getMajorGraduationAngles();
@@ -353,6 +300,6 @@ export default class gaugeController {
                 renderMajorGraduationTexts(majorGraduationsAngles, majorGraduationValues);
                 renderGraduationNeedle(minLimit, maxLimit);
             }, 200);
-        }
+        };
     }
 }
