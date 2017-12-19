@@ -1,0 +1,6 @@
+# OSX file
+.DS_Store
+
+# Node file
+node_modules/
+static/dist/
