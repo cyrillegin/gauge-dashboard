@@ -6,13 +6,15 @@ import startPage from './pages/home/home.page.html';
 // Controller imports
 import homeController from './pages/home/home.controller';
 // Component imports
-import gauge from './components/gauge/gauge.component';
+import gaugeContainerComponent from './components/gauge/gaugeContainer.component';
+import gaugeComponent from './components/gauge/gauge.component';
 
 // Style
 import './main.style.scss';
 
 angular.module('gaugeApp', ['ngRoute'])
-    .component('gauge', gauge)
+    .component('container', gaugeContainerComponent)
+    .component('gauge', gaugeComponent)
     .controller('homeController', homeController)
     .config(
         ['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) => {

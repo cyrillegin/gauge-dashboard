@@ -1,10 +1,13 @@
-import gaugeController from './gauge.controller';
+import gaugeContainer from './gauge.controller';
 import gaugeTemplate from './gauge.template.html';
 import './gauge.style.scss';
 
 const gauge = {
     template: gaugeTemplate,
-    controller: gaugeController,
+    controller: gaugeContainer,
+    bindings: {
+        attributes: '<',
+    },
 };
 
 export default gauge;
