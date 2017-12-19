@@ -26,7 +26,10 @@ def get_cp_config():
             'tools.staticdir.dir': WEBROOT,
             'tools.staticdir.index': 'index.html',
             'tools.sessions.on': True
-        }
+        },
+        '/api': {
+            'request.dispatch': cherrypy.dispatch.MethodDispatcher()
+        },
     }
     return config
 

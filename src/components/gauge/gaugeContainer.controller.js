@@ -2,66 +2,71 @@ export default class gaugeController {
 
     constructor($scope) {
         'ngInject';
+
+        this.$scope = $scope;
+
         $scope.gauges = [{
             name: 'gauge1',
-            value: 1.6,
-            upperLimit: 6,
+            value: 5,
+            upperLimit: 10,
             lowerLimit: 0,
             valueUnit: 'kW',
             precision: 2,
+            endpoint: '/api/readings',
             ranges: [{
                 min: 0,
-                max: 1.5,
+                max: 2,
                 color: '#DEDEDE',
             }, {
-                min: 1.5,
-                max: 2.5,
+                min: 2,
+                max: 4,
                 color: '#8DCA2F',
             },
             {
-                min: 2.5,
-                max: 3.5,
+                min: 4,
+                max: 6,
                 color: '#FDC702',
             },
             {
-                min: 3.5,
-                max: 4.5,
+                min: 6,
+                max: 8,
                 color: '#FF7700',
             },
             {
-                min: 4.5,
-                max: 6.0,
+                min: 8,
+                max: 10,
                 color: '#C50200',
             }],
         }, {
             name: 'gauge2',
-            value: 2.6,
-            upperLimit: 6,
+            value: 5,
+            upperLimit: 10,
             lowerLimit: 0,
             valueUnit: 'kW',
             precision: 2,
+            endpoint: '/api/readings',
             ranges: [{
                 min: 0,
-                max: 1.5,
+                max: 2,
                 color: '#DEDEDE',
             }, {
-                min: 1.5,
-                max: 2.5,
+                min: 2,
+                max: 4,
                 color: '#8DCA2F',
             },
             {
-                min: 2.5,
-                max: 3.5,
+                min: 4,
+                max: 6,
                 color: '#FDC702',
             },
             {
-                min: 3.5,
-                max: 4.5,
+                min: 6,
+                max: 8,
                 color: '#FF7700',
             },
             {
-                min: 4.5,
-                max: 6.0,
+                min: 8,
+                max: 10.0,
                 color: '#C50200',
             }],
         }];

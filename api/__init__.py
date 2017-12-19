@@ -1,4 +1,4 @@
-from api.reading import Readings
+from api.readingAPI import Readings
 
 
 class ResourceApi:

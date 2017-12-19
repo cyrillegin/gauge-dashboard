@@ -2,12 +2,14 @@ import * as d3 from 'd3';
 
 export default class gaugeController {
 
-    constructor($scope, $window, $timeout) {
+    constructor($scope, $window, $timeout, $interval, $http) {
         'ngInject';
 
         this.$scope = $scope;
         this.$window = $window;
         this.$timeout = $timeout;
+        this.$interval = $interval;
+        this.$http = $http;
     }
     $onInit() {
         this.$scope.name = this.$scope.$ctrl.attributes.name;
@@ -17,10 +19,26 @@ export default class gaugeController {
         this.$scope.valueUnit = this.$scope.$ctrl.attributes.valueUnit;
         this.$scope.precision = this.$scope.$ctrl.attributes.precision;
         this.$scope.ranges = this.$scope.$ctrl.attributes.ranges;
+        this.$scope.endpoint = this.$scope.$ctrl.attributes.endpoint;
 
         this.$timeout(() => {
             this.drawGraph();
         });
+
+        this.$interval(() => {
+            this.getReading();
+        }, 3000);
+    }
+
+    getReading() {
+        const that = this;
+        this.$http.get(this.$scope.endpoint)
+            .then((success) => {
+                that.$scope.value = success.data.newReading;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     drawGraph() {
@@ -251,9 +269,6 @@ export default class gaugeController {
         this.$scope.$watch(() => angular.element(this.$window)[0].innerWidth, () => {
             that.$scope.render();
         });
-        this.$scope.$watch('ranges', () => {
-            that.$scope.render();
-        }, true);
         this.$scope.$watch('value', () => {
             that.$scope.render();
         }, true);
