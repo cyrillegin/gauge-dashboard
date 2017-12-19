@@ -4,3 +4,7 @@
 # Node file
 node_modules/
 static/dist/
+
+#python
+*.pyc
+__pycache__/
