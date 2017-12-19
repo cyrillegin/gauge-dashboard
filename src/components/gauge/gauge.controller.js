@@ -8,8 +8,6 @@ export default class gaugeController {
         this.$scope = $scope;
         this.$window = $window;
         this.$timeout = $timeout;
-
-
     }
     $onInit() {
         this.$scope.name = this.$scope.$ctrl.attributes.name;
@@ -248,16 +246,16 @@ export default class gaugeController {
                 .attr('fill', centerColor);
         };
         this.$window.onresize = function () {
-            this.$scope.$apply();
+            that.$scope.$apply();
         };
         this.$scope.$watch(() => angular.element(this.$window)[0].innerWidth, () => {
-            this.$scope.render();
+            that.$scope.render();
         });
         this.$scope.$watch('ranges', () => {
-            this.$scope.render();
+            that.$scope.render();
         }, true);
         this.$scope.$watch('value', () => {
-            this.$scope.render();
+            that.$scope.render();
         }, true);
         this.$scope.render = function () {
             svg.selectAll('*').remove();
