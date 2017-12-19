@@ -9,6 +9,7 @@ module.exports = {
         vendor: [
           'd3',
           'angular',
+          'jquery',
         ],
     },
     output: {
@@ -55,6 +56,11 @@ module.exports = {
         new webpack.LoaderOptionsPlugin({
             minimize: true,
             debug: false,
+        }),
+        new webpack.ProvidePlugin({
+            jQuery: 'jquery',
+            $: 'jquery', // eslint-disable-line
+            jquery: 'jquery',
         }),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
