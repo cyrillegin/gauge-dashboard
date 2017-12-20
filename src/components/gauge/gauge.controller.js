@@ -298,6 +298,7 @@ export default class gaugeController {
                 if (typeof that.$scope.ranges === 'undefined') {
                     d3DataSource.push([minLimit, maxLimit, unactiveColor]);
                 } else {
+                    d3DataSource.push({});
                     // Data Generation
                     $.each(that.$scope.ranges, (index, value) => {
                         d3DataSource.push([value.min, value.max, value.color]);
@@ -313,6 +314,7 @@ export default class gaugeController {
                     .outerRadius(outterRadius)
                     .startAngle((di) => cScale(di[0]))
                     .endAngle((di) => cScale(di[1]));
+                const arcs = svg.selectAll('path');
                 svg.selectAll('path')
                     .data(d3DataSource)
                     .enter()
