@@ -69,6 +69,7 @@ export default class gaugeController {
             .append('svg')
             .attr('width', width)
             .attr('height', width * 0.75);
+
         const renderMajorGraduations = function (majorGraduationsAngles) {
             const centerX = width / 2;
             const centerY = width / 2;
@@ -145,9 +146,9 @@ export default class gaugeController {
                 const scaleValue = minScale + index * scaleRange / (majorGraduations);
                 graduationsAngles.push(scaleValue);
             }
-
             return graduationsAngles;
         };
+
         const renderMajorGraduationTexts = function (majorGraduationsAngles, majorGraduationValues) {
             if (!that.$scope.ranges) {
                 return;
@@ -212,6 +213,7 @@ export default class gaugeController {
                     .text(majorGraduationValues[index] + that.$scope.valueUnit);
             }
         };
+
         const renderGraduationNeedle = function (minLimit, maxLimit) {
             const centerX = width / 2;
             const centerY = width / 2;
@@ -237,11 +239,12 @@ export default class gaugeController {
                 const fontStyle = `${textSize}px Courier`;
 
                 if (that.$scope.value >= minLimit && that.$scope.value <= maxLimit) {
-                    svg.append('svg:path')
+                    that.$scope.needle = svg.append('svg:path')
                         .attr('d', triangle)
                         .style('stroke-width', 1)
                         .style('stroke', needleColor)
-                        .style('fill', needleColor);
+                        .style('fill', needleColor)
+                        .attr('id', `${that.$scope.name}-needle`);
                 }
 
                 svg.append('text')
@@ -251,6 +254,7 @@ export default class gaugeController {
                     .attr('fill', needleColor)
                     .attr('text-anchor', 'middle')
                     .attr('font-weight', 'bold')
+                    .attr('id', `${that.$scope.name}-text`)
                     .style('font', fontStyle)
                     .text(`[ ${that.$scope.value.toFixed(that.$scope.precision)}${that.$scope.valueUnit} ]`);
             }
@@ -270,8 +274,15 @@ export default class gaugeController {
             that.$scope.render();
         });
         this.$scope.$watch('value', () => {
-            that.$scope.render();
+            that.$scope.renderNeedle();
         }, true);
+        this.$scope.renderNeedle = function () {
+            const maxLimit = that.$scope.upperLimit ? that.$scope.upperLimit : 100;
+            const minLimit = that.$scope.lowerLimit ? that.$scope.lowerLimit : 0;
+            d3.selectAll(`#${that.$scope.name}-needle`).remove();
+            d3.selectAll(`#${that.$scope.name}-text`).remove();
+            renderGraduationNeedle(minLimit, maxLimit);
+        };
         this.$scope.render = function () {
             svg.selectAll('*').remove();
             if (renderTimeout) {
