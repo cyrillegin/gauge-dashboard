@@ -1,7 +1,7 @@
 {
 	"gauges": [{
 		"id": "gauge1",
-		"name": "My title",
+		"name": "gauge1",
 		"value": 5,
 		"upperLimit": 10,
 		"lowerLimit": 0,
@@ -32,7 +32,7 @@
 		]
 	}, {
 		"id": "gauge2",
-		"name": "My title",
+		"name": "gauge2",
 		"value": 5,
 		"upperLimit": 10,
 		"lowerLimit": 0,
@@ -65,7 +65,7 @@
 		]
 	}, {
 		"id": "gauge3",
-		"name": "My title",
+		"name": "gauge3",
 		"value": 5,
 		"upperLimit": 10,
 		"lowerLimit": 0,
@@ -98,7 +98,7 @@
 		]
 	}, {
 		"id": "gauge4",
-		"name": "My title",
+		"name": "gauge4",
 		"value": 5,
 		"upperLimit": 10,
 		"lowerLimit": 0,
@@ -131,7 +131,7 @@
 		]
 	}, {
 		"id": "gauge5",
-		"name": "My Title",
+		"name": "gauge5",
 		"value": 5,
 		"upperLimit": 10,
 		"lowerLimit": 0,
@@ -164,7 +164,7 @@
 		]
 	}, {
 		"id": "gauge6",
-		"name": "My Title",
+		"name": "gauge6",
 		"value": 5,
 		"upperLimit": 10,
 		"lowerLimit": 0,

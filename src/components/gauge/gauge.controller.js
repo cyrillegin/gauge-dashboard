@@ -265,7 +265,7 @@ export default class gaugeController {
         this.$scope.$on('readings-update', (event, args) => {
             this.$scope.value = this.$scope.$ctrl.attributes.value;
             that.$scope.renderNeedle();
-        })
+        });
         this.$scope.renderNeedle = function () {
             const maxLimit = that.$scope.upperLimit ? that.$scope.upperLimit : 100;
             const minLimit = that.$scope.lowerLimit ? that.$scope.lowerLimit : 0;
