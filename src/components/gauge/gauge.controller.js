@@ -46,8 +46,9 @@ export default class gaugeController {
         // Clear anything that is already in there.
         container.html('');
         const that = this;
-
         let renderTimeout;
+
+        // Graph Settings
         const width = 300;
         const innerRadius = Math.round((width * 130) / 300);
         const outterRadius = Math.round((width * 145) / 300);
@@ -269,9 +270,9 @@ export default class gaugeController {
                 .attr('fill', centerColor)
                 .attr('id', `${that.$scope.name}-circle`);
         };
-        this.$window.onresize = function () {
-            that.$scope.$apply();
-        };
+        // this.$window.onresize = function () {
+        //     that.$scope.$apply();
+        // };
         this.$scope.$watch(() => angular.element(this.$window)[0].innerWidth, () => {
             that.$scope.render();
         });
@@ -314,7 +315,6 @@ export default class gaugeController {
                     .outerRadius(outterRadius)
                     .startAngle((di) => cScale(di[0]))
                     .endAngle((di) => cScale(di[1]));
-                const arcs = svg.selectAll('path');
                 svg.selectAll('path')
                     .data(d3DataSource)
                     .enter()

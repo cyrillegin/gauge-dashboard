@@ -1,14 +1,1 @@
 @import '../../constants';
-
-.container {
-    display: grid;
-    grid-gap: 10px;
-    grid-template-columns: 100px 100px 100px;
-}
-
-
-.gauge {
-    border-radius: 5px;
-    font-size: 150%;
-    padding: 20px;
-}
