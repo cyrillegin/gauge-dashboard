@@ -13,6 +13,7 @@ export default class gaugeController {
     }
     $onInit() {
         this.$scope.name = this.$scope.$ctrl.attributes.name;
+        this.$scope.id = this.$scope.$ctrl.attributes.id;
         this.$scope.value = this.$scope.$ctrl.attributes.value;
         this.$scope.upperLimit = this.$scope.$ctrl.attributes.upperLimit;
         this.$scope.lowerLimit = this.$scope.$ctrl.attributes.lowerLimit;
@@ -24,25 +25,10 @@ export default class gaugeController {
         this.$timeout(() => {
             this.drawGraph();
         });
-
-        this.$interval(() => {
-            this.getReading();
-        }, 3000);
-    }
-
-    getReading() {
-        const that = this;
-        this.$http.get(this.$scope.endpoint)
-            .then((success) => {
-                that.$scope.value = success.data.newReading;
-            })
-            .catch((error) => {
-                console.log(error);
-            });
     }
 
     drawGraph() {
-        const container = $(`#${this.$scope.name}`);
+        const container = $(`#${this.$scope.id}`);
         // Clear anything that is already in there.
         container.html('');
         const that = this;
@@ -246,7 +232,7 @@ export default class gaugeController {
                         .style('stroke-width', 1)
                         .style('stroke', needleColor)
                         .style('fill', needleColor)
-                        .attr('id', `${that.$scope.name}-needle`);
+                        .attr('id', `${that.$scope.id}-needle`);
                 }
 
                 svg.append('text')
@@ -256,7 +242,7 @@ export default class gaugeController {
                     .attr('fill', needleColor)
                     .attr('text-anchor', 'middle')
                     .attr('font-weight', 'bold')
-                    .attr('id', `${that.$scope.name}-text`)
+                    .attr('id', `${that.$scope.id}-text`)
                     .style('font', fontStyle)
                     .text(`[ ${that.$scope.value.toFixed(that.$scope.precision)}${that.$scope.valueUnit} ]`);
             }
@@ -268,23 +254,24 @@ export default class gaugeController {
                 .attr('cy', centerX)
                 .attr('cx', centerY)
                 .attr('fill', centerColor)
-                .attr('id', `${that.$scope.name}-circle`);
+                .attr('id', `${that.$scope.id}-circle`);
         };
-        // this.$window.onresize = function () {
-        //     that.$scope.$apply();
-        // };
+        this.$window.onresize = function () {
+            that.$scope.$apply();
+        };
         this.$scope.$watch(() => angular.element(this.$window)[0].innerWidth, () => {
             that.$scope.render();
         });
-        this.$scope.$watch('value', () => {
+        this.$scope.$on('readings-update', (event, args) => {
+            this.$scope.value = this.$scope.$ctrl.attributes.value;
             that.$scope.renderNeedle();
-        }, true);
+        })
         this.$scope.renderNeedle = function () {
             const maxLimit = that.$scope.upperLimit ? that.$scope.upperLimit : 100;
             const minLimit = that.$scope.lowerLimit ? that.$scope.lowerLimit : 0;
-            d3.selectAll(`#${that.$scope.name}-needle`).remove();
-            d3.selectAll(`#${that.$scope.name}-text`).remove();
-            d3.selectAll(`#${that.$scope.name}-circle`).remove();
+            d3.selectAll(`#${that.$scope.id}-needle`).remove();
+            d3.selectAll(`#${that.$scope.id}-text`).remove();
+            d3.selectAll(`#${that.$scope.id}-circle`).remove();
             renderGraduationNeedle(minLimit, maxLimit);
         };
         this.$scope.render = function () {

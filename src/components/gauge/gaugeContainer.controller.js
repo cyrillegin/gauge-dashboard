@@ -1,202 +1,57 @@
 export default class gaugeController {
 
-    constructor($scope) {
+    constructor($scope, $http, $interval, $rootScope) {
         'ngInject';
 
         this.$scope = $scope;
+        this.$http = $http;
+        this.$interval = $interval;
+        this.$rootScope = $rootScope;
+    }
 
-        $scope.gauges = [{
-            name: 'gauge1',
-            value: 5,
-            upperLimit: 10,
-            lowerLimit: 0,
-            valueUnit: 'kW',
-            precision: 2,
-            endpoint: '/api/readings',
-            ranges: [{
-                min: 0,
-                max: 2,
-                color: '#DEDEDE',
-            }, {
-                min: 2,
-                max: 4,
-                color: '#8DCA2F',
+    $onInit() {
+        this.$http.get('/api/readings')
+            .then((success) => {
+                this.$scope.gauges = success.data.gauges;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        this.$interval(() => {
+            this.getReadings();
+        }, 3000);
+    }
+
+    getReadings() {
+        const that = this;
+        const ids = this.$scope.gauges.map((gauge) => gauge.id);
+        const req = {
+            method: 'POST',
+            url: '/api/readings',
+            headers: {
+                'Content-Type': 'application/json',
             },
-            {
-                min: 4,
-                max: 6,
-                color: '#FDC702',
-            },
-            {
-                min: 6,
-                max: 8,
-                color: '#FF7700',
-            },
-            {
-                min: 8,
-                max: 10,
-                color: '#C50200',
-            }],
-        }, {
-            name: 'gauge2',
-            value: 5,
-            upperLimit: 10,
-            lowerLimit: 0,
-            valueUnit: 'kW',
-            precision: 2,
-            endpoint: '/api/readings',
-            ranges: [{
-                min: 0,
-                max: 2,
-                color: '#DEDEDE',
-            }, {
-                min: 2,
-                max: 4,
-                color: '#8DCA2F',
-            },
-            {
-                min: 4,
-                max: 6,
-                color: '#FDC702',
-            },
-            {
-                min: 6,
-                max: 8,
-                color: '#FF7700',
-            },
-            {
-                min: 8,
-                max: 10.0,
-                color: '#C50200',
-            }],
-        }, {
-            name: 'gauge3',
-            value: 5,
-            upperLimit: 10,
-            lowerLimit: 0,
-            valueUnit: 'kW',
-            precision: 2,
-            endpoint: '/api/readings',
-            ranges: [{
-                min: 0,
-                max: 2,
-                color: '#DEDEDE',
-            }, {
-                min: 2,
-                max: 4,
-                color: '#8DCA2F',
-            },
-            {
-                min: 4,
-                max: 6,
-                color: '#FDC702',
-            },
-            {
-                min: 6,
-                max: 8,
-                color: '#FF7700',
-            },
-            {
-                min: 8,
-                max: 10.0,
-                color: '#C50200',
-            }],
-        }, {
-            name: 'gauge4',
-            value: 5,
-            upperLimit: 10,
-            lowerLimit: 0,
-            valueUnit: 'kW',
-            precision: 2,
-            endpoint: '/api/readings',
-            ranges: [{
-                min: 0,
-                max: 2,
-                color: '#DEDEDE',
-            }, {
-                min: 2,
-                max: 4,
-                color: '#8DCA2F',
-            },
-            {
-                min: 4,
-                max: 6,
-                color: '#FDC702',
-            },
-            {
-                min: 6,
-                max: 8,
-                color: '#FF7700',
-            },
-            {
-                min: 8,
-                max: 10.0,
-                color: '#C50200',
-            }],
-        }, {
-            name: 'gauge5',
-            value: 5,
-            upperLimit: 10,
-            lowerLimit: 0,
-            valueUnit: 'kW',
-            precision: 2,
-            endpoint: '/api/readings',
-            ranges: [{
-                min: 0,
-                max: 2,
-                color: '#DEDEDE',
-            }, {
-                min: 2,
-                max: 4,
-                color: '#8DCA2F',
-            },
-            {
-                min: 4,
-                max: 6,
-                color: '#FDC702',
-            },
-            {
-                min: 6,
-                max: 8,
-                color: '#FF7700',
-            },
-            {
-                min: 8,
-                max: 10.0,
-                color: '#C50200',
-            }],
-        }, {
-            name: 'gauge6',
-            value: 5,
-            upperLimit: 10,
-            lowerLimit: 0,
-            valueUnit: 'kW',
-            precision: 2,
-            endpoint: '/api/readings',
-            ranges: [{
-                min: 0,
-                max: 2,
-                color: '#DEDEDE',
-            }, {
-                min: 2,
-                max: 4,
-                color: '#8DCA2F',
-            },
-            {
-                min: 4,
-                max: 6,
-                color: '#FDC702',
-            },
-            {
-                min: 6,
-                max: 8,
-                color: '#FF7700',
-            },
-            {
-                min: 8,
-                max: 10.0,
-                color: '#C50200',
-            }],
-        }];
+            data: JSON.stringify(ids),
+        };
+        this.$http(req)
+            .then((success) => {
+                const newGauges = [];
+                success.data.readings.forEach((reading) => {
+                    that.$scope.gauges.forEach((gauge) => {
+                        if (reading.id === gauge.id) {
+                            const newGauge = gauge;
+                            newGauge.value = reading.newReading;
+                            newGauges.push(newGauge);
+                        }
+                    });
+                });
+
+                that.$scope.gauges = newGauges;
+                that.$rootScope.$broadcast('readings-update');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 }

@@ -1,0 +1,200 @@
+{
+	"gauges": [{
+		"id": "gauge1",
+		"name": "My title",
+		"value": 5,
+		"upperLimit": 10,
+		"lowerLimit": 0,
+		"valueUnit": "kW",
+		"precision": 2,
+		"ranges": [{
+				"min": 0,
+				"max": 2,
+				"color": "#DEDEDE"
+			}, {
+				"min": 2,
+				"max": 4,
+				"color": "#8DCA2F"
+			}, {
+				"min": 4,
+				"max": 6,
+				"color": "#FDC702"
+			}, {
+				"min": 6,
+				"max": 8,
+				"color": "#FF7700"
+			},
+			{
+				"min": 8,
+				"max": 10,
+				"color": "#C50200"
+			}
+		]
+	}, {
+		"id": "gauge2",
+		"name": "My title",
+		"value": 5,
+		"upperLimit": 10,
+		"lowerLimit": 0,
+		"valueUnit": "kW",
+		"precision": 2,
+		"ranges": [{
+				"min": 0,
+				"max": 2,
+				"color": "#DEDEDE"
+			}, {
+				"min": 2,
+				"max": 4,
+				"color": "#8DCA2F"
+			},
+			{
+				"min": 4,
+				"max": 6,
+				"color": "#FDC702"
+			},
+			{
+				"min": 6,
+				"max": 8,
+				"color": "#FF7700"
+			},
+			{
+				"min": 8,
+				"max": 10.0,
+				"color": "#C50200"
+			}
+		]
+	}, {
+		"id": "gauge3",
+		"name": "My title",
+		"value": 5,
+		"upperLimit": 10,
+		"lowerLimit": 0,
+		"valueUnit": "kW",
+		"precision": 2,
+		"ranges": [{
+				"min": 0,
+				"max": 2,
+				"color": "#DEDEDE"
+			}, {
+				"min": 2,
+				"max": 4,
+				"color": "#8DCA2F"
+			},
+			{
+				"min": 4,
+				"max": 6,
+				"color": "#FDC702"
+			},
+			{
+				"min": 6,
+				"max": 8,
+				"color": "#FF7700"
+			},
+			{
+				"min": 8,
+				"max": 10.0,
+				"color": "#C50200"
+			}
+		]
+	}, {
+		"id": "gauge4",
+		"name": "My title",
+		"value": 5,
+		"upperLimit": 10,
+		"lowerLimit": 0,
+		"valueUnit": "kW",
+		"precision": 2,
+		"ranges": [{
+				"min": 0,
+				"max": 2,
+				"color": "#DEDEDE"
+			}, {
+				"min": 2,
+				"max": 4,
+				"color": "#8DCA2F"
+			},
+			{
+				"min": 4,
+				"max": 6,
+				"color": "#FDC702"
+			},
+			{
+				"min": 6,
+				"max": 8,
+				"color": "#FF7700"
+			},
+			{
+				"min": 8,
+				"max": 10.0,
+				"color": "#C50200"
+			}
+		]
+	}, {
+		"id": "gauge5",
+		"name": "My Title",
+		"value": 5,
+		"upperLimit": 10,
+		"lowerLimit": 0,
+		"valueUnit": "kW",
+		"precision": 2,
+		"ranges": [{
+				"min": 0,
+				"max": 2,
+				"color": "#DEDEDE"
+			}, {
+				"min": 2,
+				"max": 4,
+				"color": "#8DCA2F"
+			},
+			{
+				"min": 4,
+				"max": 6,
+				"color": "#FDC702"
+			},
+			{
+				"min": 6,
+				"max": 8,
+				"color": "#FF7700"
+			},
+			{
+				"min": 8,
+				"max": 10.0,
+				"color": "#C50200"
+			}
+		]
+	}, {
+		"id": "gauge6",
+		"name": "My Title",
+		"value": 5,
+		"upperLimit": 10,
+		"lowerLimit": 0,
+		"valueUnit": "kW",
+		"precision": 2,
+		"ranges": [{
+				"min": 0,
+				"max": 2,
+				"color": "#DEDEDE"
+			}, {
+				"min": 2,
+				"max": 4,
+				"color": "#8DCA2F"
+			},
+			{
+				"min": 4,
+				"max": 6,
+				"color": "#FDC702"
+			},
+			{
+				"min": 6,
+				"max": 8,
+				"color": "#FF7700"
+			},
+			{
+				"min": 8,
+				"max": 10.0,
+				"color": "#C50200"
+			}
+		]
+
+	}]
+}
