@@ -10,9 +10,10 @@ class Readings:
     def GET(self, **kwargs):
         logging.info('GET request to Reading')
 
+        data = json.load(open('gauge_config.json'))
+
         newReading = {
             'newReading': random.uniform(0, 10)
         }
-        print(newReading)
 
-        return json.dumps(newReading)
+        return json.dumps(data)
