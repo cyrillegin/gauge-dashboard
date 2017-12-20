@@ -215,6 +215,7 @@ export default class gaugeController {
         };
 
         const renderGraduationNeedle = function (minLimit, maxLimit) {
+
             const centerX = width / 2;
             const centerY = width / 2;
             let centerColor;
@@ -239,7 +240,7 @@ export default class gaugeController {
                 const fontStyle = `${textSize}px Courier`;
 
                 if (that.$scope.value >= minLimit && that.$scope.value <= maxLimit) {
-                    that.$scope.needle = svg.append('svg:path')
+                    svg.append('path')
                         .attr('d', triangle)
                         .style('stroke-width', 1)
                         .style('stroke', needleColor)
@@ -265,7 +266,8 @@ export default class gaugeController {
                 .attr('r', circleRadius)
                 .attr('cy', centerX)
                 .attr('cx', centerY)
-                .attr('fill', centerColor);
+                .attr('fill', centerColor)
+                .attr('id', `${that.$scope.name}-circle`);
         };
         this.$window.onresize = function () {
             that.$scope.$apply();
@@ -281,6 +283,7 @@ export default class gaugeController {
             const minLimit = that.$scope.lowerLimit ? that.$scope.lowerLimit : 0;
             d3.selectAll(`#${that.$scope.name}-needle`).remove();
             d3.selectAll(`#${that.$scope.name}-text`).remove();
+            d3.selectAll(`#${that.$scope.name}-circle`).remove();
             renderGraduationNeedle(minLimit, maxLimit);
         };
         this.$scope.render = function () {
