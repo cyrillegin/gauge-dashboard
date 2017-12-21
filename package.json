@@ -7,7 +7,7 @@
     "scripts": {
         "setup": "npm run installDependencies && npm run installGitHooks",
         "installDependencies": "npm install",
-        "installGitHooks": "printf '%s#!/bin/bash %s\n %s\necho \"running linter\" %s\nnpm run lint' > .git/hooks/pre-push && chmod +x .git/hooks/pre-push",
+        "installGitHooks": "printf '%s#!/bin/bash %s\n %s\necho \"running tests\" %s\nnpm run test' > .git/hooks/pre-push && chmod +x .git/hooks/pre-push",
         "postinstall": "npm --prefix ./node_modules/node-sass/ run install",
         "checkOutdated": "npm outdated && pip list --outdated",
         "start": "npm run build & python server.py",
@@ -18,6 +18,8 @@
         "buildProduction": "npm run clean && npm run webpackProduction",
         "webpackProduction": "webpack --progress --config ./webpack.production.config.js",
         "webpack": "webpack --progress --config ./webpack.development.config.js",
+        "test": "npm run lint & npm run tests",
+        "tests": "./node_modules/.bin/sonarwhal localhost:5000",
         "lint": "npm run htmllint & npm run scsslint & npm run eslint",
         "eslint": "./node_modules/.bin/eslint src",
         "htmllint": "./node_modules/.bin/htmlhint --config .htmlhintrc src",
