@@ -4,6 +4,7 @@
 # Node file
 node_modules/
 static/dist/
+*.pid
 
 #python
 *.pyc

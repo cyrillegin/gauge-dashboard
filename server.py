@@ -22,10 +22,13 @@ class Root(object):
 def get_cp_config():
     config = {
         '/': {
+            'tools.gzip.on': True,
             'tools.staticdir.on': True,
             'tools.staticdir.dir': WEBROOT,
             'tools.staticdir.index': 'index.html',
-            'tools.sessions.on': True
+            'tools.sessions.on': True,
+            'tools.expires.on': True,
+            'tools.expires.secs'  : 3600 * 24 * 7 * 4
         },
         '/api': {
             'request.dispatch': cherrypy.dispatch.MethodDispatcher()
