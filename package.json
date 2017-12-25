@@ -19,12 +19,7 @@
         "buildProduction": "npm run clean && npm run webpackProduction",
         "webpackProduction": "webpack --progress --config ./webpack.production.config.js",
         "webpack": "webpack --progress --config ./webpack.development.config.js",
-        "test": "npm run lint & npm run tests",
-        "tests": "./node_modules/.bin/sonarwhal localhost:5000",
-        "lint": "npm run htmllint & npm run scsslint & npm run eslint",
-        "eslint": "./node_modules/.bin/eslint src",
-        "htmllint": "./node_modules/.bin/htmlhint --config .htmlhintrc src",
-        "scsslint": "./node_modules/.bin/sass-lint src '**/*.scss' -v -q"
+        "test": "npm run assess",
     },
     "dependencies": {
         "@uirouter/angularjs": "1.0.12",
