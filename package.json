@@ -19,7 +19,7 @@
         "buildProduction": "npm run clean && npm run webpackProduction",
         "webpackProduction": "webpack --progress --config ./webpack.production.config.js",
         "webpack": "webpack --progress --config ./webpack.development.config.js",
-        "test": "npm run assess",
+        "test": "npm run assess"
     },
     "dependencies": {
         "@uirouter/angularjs": "1.0.12",
