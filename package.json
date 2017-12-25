@@ -5,6 +5,7 @@
     "author": "Visgence Inc.",
     "private": "true",
     "scripts": {
+        "assess": "babel-node node_modules/.bin/code-assess src",
         "setup": "npm run installDependencies && npm run installGitHooks",
         "installDependencies": "npm install",
         "installGitHooks": "printf '%s#!/bin/bash %s\n %s\necho \"running tests\" %s\nnpm run test' > .git/hooks/pre-push && chmod +x .git/hooks/pre-push",
@@ -26,41 +27,36 @@
         "scsslint": "./node_modules/.bin/sass-lint src '**/*.scss' -v -q"
     },
     "dependencies": {
-        "@uirouter/angularjs": "1.0.11",
-        "angular": "1.6.7",
-        "angular-animate": "1.6.7",
-        "angular-aria": "1.6.7",
-        "angular-route": "1.6.7",
+        "@uirouter/angularjs": "1.0.12",
+        "angular": "1.6.8",
+        "angular-animate": "1.6.8",
+        "angular-aria": "1.6.8",
+        "angular-route": "1.6.8",
         "d3": "4.12.0",
         "jquery": "3.2.1"
     },
     "devDependencies": {
         "babel-cli": "6.26.0",
         "babel-core": "6.26.0",
-        "babel-eslint": "8.0.3",
         "babel-loader": "7.1.2",
         "babel-plugin-angularjs-annotate": "0.8.2",
         "babel-preset-env": "1.6.1",
         "babel-preset-es2015": "6.24.1",
         "css-loader": "0.28.7",
-        "eslint": "4.13.1",
-        "eslint-plugin-import": "2.8.0",
+        "code-assess": "0.2.1",
         "exports-loader": "0.6.4",
         "extract-text-webpack-plugin": "3.0.2",
         "file-loader": "1.1.6",
         "html-loader": "0.5.1",
-        "htmlhint": "0.9.13",
         "imports-loader": "0.7.1",
         "less": "2.7.3",
         "node-sass": "4.7.2",
-        "sass-lint": "1.12.1",
         "sass-loader": "6.0.6",
-        "sonarwhal": "0.20.1",
         "style-loader": "0.19.1",
         "uglifyjs-webpack-plugin": "0.4.6",
         "url-loader": "0.6.2",
         "webpack": "3.10.0",
         "webpack-bundle-analyzer": "2.9.1",
-        "webpack-bundle-tracker": "0.2.0"
+        "webpack-bundle-tracker": "0.2.1"
     }
 }

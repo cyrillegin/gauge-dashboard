@@ -6,7 +6,9 @@ module.exports = {
     entry: {
         app: './src/index.js',
         vendor: [
-          
+            'd3',
+            'angular',
+            'jquery',
         ],
     },
     output: {
